@@ -37,11 +37,11 @@ namespace ThreadPoolProject
             _errorMessageHelper = errorMessageHelper;
         }
 
-        public void Execute(Action<object?> action, object? value, PriorityThread priority)
+        public bool Execute(Action<object?> action, object? value, PriorityThread priority)
         {
             if (_isStoped)
             {
-                return;
+                return false;
             }
 
             switch (priority)
@@ -53,7 +53,9 @@ namespace ThreadPoolProject
                 case PriorityThread.LOW:                    
                     _lowWorkAtions.Enqueue(new(action, value)); 
                     break;
-            }          
+            } 
+            
+            return true;
         }
 
         public void Stop()

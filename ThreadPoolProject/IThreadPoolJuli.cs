@@ -8,7 +8,7 @@ namespace ThreadPoolProject
 {
     public interface IThreadPoolJuli
     {
-        void Execute(Action<object?> action, object? value, PriorityThread priority = PriorityThread.NORMAL);
+        bool Execute(Action<object?> action, object? value, PriorityThread priority = PriorityThread.NORMAL);
 
         void Stop();
     }
