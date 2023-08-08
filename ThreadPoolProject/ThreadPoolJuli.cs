@@ -15,7 +15,7 @@ namespace ThreadPoolProject
         private readonly Thread[] _threads;
         private readonly IErrorMessageHelper? _errorMessageHelper;
         private volatile bool _isStoped;
-        private volatile short _countActivateHighWork;
+        private volatile int _countActivateHighWork;
         
         private int _maxThreads;
 
@@ -102,7 +102,8 @@ namespace ThreadPoolProject
 
                     if(!_highWorkAtions.IsEmpty && _countActivateHighWork < MAX_ACTIVE_WORK && _highWorkAtions.TryDequeue(out (Action<object?> Work, object? Parameter) highActionWork))
                     {
-                        ++_countActivateHighWork;
+
+                        Interlocked.Increment(ref _countActivateHighWork);                        
 
                         actionWork = highActionWork;
 
